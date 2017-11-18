@@ -1,4 +1,5 @@
 import requests
+from bighack.core.models import Building
 
 
 API_KEY = "48f3e592a2e05752f4d6a94b4e4cdca8"
@@ -24,6 +25,7 @@ def get_data():
         url = DATA_URL % (API_KEY, 500, offset)
         r = requests.get(url)
         if r.status_code == 200:
-            print("succeed")
+            data = r.json()['Cells']
+            b = Building(data['Address'], data['EGRPLicenceNumber'], data['ObjectArea'], (data['HistoricalAndCulturalHeritageCategory'] is not None), data['geoData']['coordinates'][1], data['geoData']['coordinates'][0])
         else:
             print("fail")
