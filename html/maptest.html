@@ -53,7 +53,7 @@
           var marker = new google.maps.Marker({
             position: latLng,
             map: map,
-            title: results.features.Cells.Address,
+            title: results.features[i].Cells.Address,
           });
 
           // добавляем действие по клику на маркер
