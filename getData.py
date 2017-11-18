@@ -25,14 +25,16 @@ def get_data():
         url = DATA_URL % (API_KEY, 500, offset)
         r = requests.get(url)
         if r.status_code == 200:
-            data = r.json()['Cells']
-            b = Building()
-            b.address = data['Address']
-            b.license = data['EGRPLicenceNumber']
-            b.square = data['ObjectArea']
-            b.historic = (data['HistoricalAndCulturalHeritageCategory'] is not None)
-            b.latitude = data['geoData']['coordinates'][1]
-            b.longtuide = data['geoData']['coordinates'][0]
-            b.save()
+            allData = r.json()
+            for d in allData:
+                data = d['Cells']
+                b = Building()
+                b.address = data['Address']
+                b.license = data['EGRPLicenceNumber']
+                b.square = data['ObjectArea']
+                b.historic = (data['HistoricalAndCulturalHeritageCategory'] is not None)
+                b.latitude = data['geoData']['coordinates'][1]
+                b.longtuide = data['geoData']['coordinates'][0]
+                b.save()
         else:
             print("fail")
