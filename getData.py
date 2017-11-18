@@ -22,6 +22,7 @@ def get_data():
         number = 0
 
     # get offers by packs of 500
+    counter = 0
     for offset in range(0, OFFER_NUM, 500):
         url = DATA_URL % (API_KEY, 500, offset)
         r = requests.get(url)
@@ -35,7 +36,9 @@ def get_data():
                     b.license = data['EGRPLicenceNumber']
                     b.square = data['ObjectArea']
                     b.latitude = data['geoData']['coordinates'][1]
-                    b.longtuide = data['geoData']['coordinates'][0]
+                    b.longitude = data['geoData']['coordinates'][0]
                     b.save()
+                    counter += 1
+                    if counter == OFFER_NUM: return
         else:
             print("fail")
