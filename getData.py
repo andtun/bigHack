@@ -27,6 +27,3 @@ def get_data():
             print("succeed")
         else:
             print("fail")
-
-
-get_data()
