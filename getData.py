@@ -26,6 +26,13 @@ def get_data():
         r = requests.get(url)
         if r.status_code == 200:
             data = r.json()['Cells']
-            b = Building(data['Address'], data['EGRPLicenceNumber'], data['ObjectArea'], (data['HistoricalAndCulturalHeritageCategory'] is not None), data['geoData']['coordinates'][1], data['geoData']['coordinates'][0])
+            b = Building()
+            b.address = data['Address']
+            b.license = data['EGRPLicenceNumber']
+            b.square = data['ObjectArea']
+            b.historic = (data['HistoricalAndCulturalHeritageCategory'] is not None)
+            b.latitude = data['geoData']['coordinates'][1]
+            b.longtuide = data['geoData']['coordinates'][0]
+            b.save()
         else:
             print("fail")
