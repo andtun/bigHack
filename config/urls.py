@@ -4,5 +4,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(settings.ADMIN_URL, admin.site.urls),
-    url('^', include('bighack.test.urls')),
+    url('^', include('bighack.core.urls')),
 ]
